@@ -16,8 +16,12 @@
       if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
         var mediaSource = new MediaSource;
         //console.log(mediaSource.readyState); // closed
-        video.src = URL.createObjectURL(mediaSource);
+        var mediaSourceURL = URL.createObjectURL(mediaSource);
+        console.log(mediaSourceURL);
         mediaSource.addEventListener('sourceopen', sourceOpen);
+        window.setTimeout(function () {
+          video.src = mediaSourceURL;
+        }, 0);
       } else {
         console.error('Unsupported MIME type or codec: ', mimeCodec);
       }
